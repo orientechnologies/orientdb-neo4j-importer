@@ -1,4 +1,4 @@
-package http;
+package com.orientechnologies.orient.http;
 
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.server.network.protocol.http.OHttpRequest;

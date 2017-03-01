@@ -1,8 +1,9 @@
-package http;
+package com.orientechnologies.orient.http;
 
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.neo4jimporter.ONeo4jImporter;
 import com.orientechnologies.orient.neo4jimporter.ONeo4jImporterCommandLineParser;
+import com.orientechnologies.orient.neo4jimporter.ONeo4jImporterPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +45,8 @@ public class ONeo4jImporterJob  implements Runnable {
     String[] args = argsList.toArray(new String[argsList.size()]);
 
     try {
-      final ONeo4jImporter neo4jImporter = ONeo4jImporterCommandLineParser.getNeo4jImporter(args);
-      neo4jImporter.execute();
+      final ONeo4jImporterPlugin neo4jImporterPlugin = new ONeo4jImporterPlugin();
+      neo4jImporterPlugin.executeJob(args);
     } catch (Exception e) {
     }
 

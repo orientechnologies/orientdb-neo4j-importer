@@ -45,6 +45,10 @@ public class ONeo4jImporter {
     this.settings = settings;
   }
 
+  public ONeo4jImporterSettings getSettings() {
+    return settings;
+  }
+
   public int execute() throws Exception {
 
     //

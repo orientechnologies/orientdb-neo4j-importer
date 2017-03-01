@@ -1,7 +1,6 @@
-package http;
+package com.orientechnologies.orient.http;
 
 import com.orientechnologies.orient.core.record.impl.ODocument;
-import com.orientechnologies.orient.neo4jimporter.ONeo4jImporter;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
