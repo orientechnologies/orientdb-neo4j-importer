@@ -1,6 +1,7 @@
 package com.orientechnologies.orient.neo4jimporter;
 
 import com.orientechnologies.orient.core.db.document.ODatabaseDocumentTx;
+import com.orientechnologies.orient.depsloader.OPluginDependencyManager;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
@@ -316,6 +317,35 @@ public class ONeo4jImporterTest {
     assertEquals(20, db.getMetadata().getSchema().getClass("MultipleLabelNeo4jConversion").count());
 
     db.close();
+
+  }
+
+  @Test
+  public void testLibRuntimeLoading() throws Exception {
+
+    String[] args = new String[6];
+
+    args[0] = "-neo4jlibdir";
+    args[1] = "/Users/gabriele/neo4j-community-3.1.1/lib";
+    args[2] = "-neo4jdbdir";
+    args[3] = "/Users/gabriele/neo4j-community-3.1.1/data/databases/graph.db";
+    args[4] = "-odbdir";
+    args[5] = "/Users/gabriele/orientdb-community-2.2.18-SNAPSHOT/databases/neo4jImport";
+
+    final ONeo4jImporter neo4jImporter = ONeo4jImporterCommandLineParser.getNeo4jImporter(args);
+
+    ONeo4jImporterSettings settings = neo4jImporter.getSettings();
+    String neo4jLibPath = settings.getNeo4jLibPath();
+
+    // defining child class loader to load neo4j dependencies
+    OPluginDependencyManager.setNewChildClassLoaderFromJarDir(neo4jLibPath);
+
+    try {
+      neo4jImporter.execute();
+    } catch(Exception e) {
+      System.out.println("Exception message: " + e.getMessage());
+      System.out.println("Stacktrace:\n" + e.getStackTrace());
+    }
 
   }
 

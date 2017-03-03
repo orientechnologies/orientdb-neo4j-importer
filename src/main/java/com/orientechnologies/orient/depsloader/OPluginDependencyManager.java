@@ -42,7 +42,8 @@ public class OPluginDependencyManager {
 
       for (int i = 0; i < jarFiles.length; i++) {
         try {
-          urls[i] = jarFiles[i].toURI().toURL();
+          URL u = new URL("jar:file:" + jarFiles[i] + "!/");
+          urls[i] = u;
         } catch (MalformedURLException e) {
           throw new RuntimeException("Could not get URL for JAR file: " + jarFiles[i], e);
         }

@@ -19,17 +19,22 @@ public class ONeo4jImporterPlugin extends OServerPluginAbstract {
   public ONeo4jImporterPlugin() {}
 
 
-  public int executeJob(String[] args) throws Exception {
+  public void executeJob(String[] args) throws Exception {
 
     final ONeo4jImporter neo4jImporter = ONeo4jImporterCommandLineParser.getNeo4jImporter(args);
 
     ONeo4jImporterSettings settings = neo4jImporter.getSettings();
-    String neo4jLibPath = settings.neo4jLibPath;
+    String neo4jLibPath = settings.getNeo4jLibPath();
 
     // defining child class loader to load neo4j dependencies
     OPluginDependencyManager.setNewChildClassLoaderFromJarDir(neo4jLibPath);
 
-    return neo4jImporter.execute();
+    try {
+      neo4jImporter.execute();
+    } catch(Exception e) {
+      System.out.println("Exception message: " + e.getMessage());
+      System.out.println("Stacktrace:\n" + e.getStackTrace());
+    }
   }
 
   @Override

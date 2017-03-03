@@ -27,17 +27,22 @@ public class ONeo4jImporterJob  implements Runnable {
   public void run() {
 
     List<String> argsList = new ArrayList<String>();
-    final String neo4jLibDir = cfg.field("neo4jlibdir");
-    final String neo4jDbDir = cfg.field("neo4jdbdir");
-    final String odbDir = cfg.field("odbdir");
-    final String options = cfg.field("o");
+    final String neo4jLibDir = cfg.field("neo4jLibDir");
+    final String neo4jDbDir = cfg.field("neo4jDbDir");
+    final String odbDir = cfg.field("outDbUrl");
+    final String override = cfg.field("override");
+    final String options = cfg.field("options");
 
+    argsList.add("-neo4jlibdir");
     argsList.add(neo4jLibDir);
+    argsList.add("-neo4jdbdir");
     argsList.add(neo4jDbDir);
     if(odbDir != null) {
+      argsList.add("-odbdir");
       argsList.add(odbDir);
     }
     if(options != null) {
+      argsList.add("");
       argsList.add(options);
     }
     status = Status.RUNNING;
