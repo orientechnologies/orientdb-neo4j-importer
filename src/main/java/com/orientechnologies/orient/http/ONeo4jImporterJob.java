@@ -1,6 +1,8 @@
 package com.orientechnologies.orient.http;
 
 import com.orientechnologies.orient.core.record.impl.ODocument;
+import com.orientechnologies.orient.depsloader.OChildFirstURLClassLoader;
+import com.orientechnologies.orient.depsloader.OPluginDependencyManager;
 import com.orientechnologies.orient.neo4jimporter.ONeo4jImporter;
 import com.orientechnologies.orient.neo4jimporter.ONeo4jImporterCommandLineParser;
 import com.orientechnologies.orient.neo4jimporter.ONeo4jImporterPlugin;
@@ -25,6 +27,20 @@ public class ONeo4jImporterJob  implements Runnable {
 
   @Override
   public void run() {
+
+    System.out.println("Thread: id:" + Thread.currentThread().getId() + ", name:" + Thread.currentThread().getId() + ", state:" + Thread.currentThread().getState() +
+        ", thread-group:" + Thread.currentThread().getThreadGroup().getName());
+
+    ClassLoader currentThreadClassLoader = Thread.currentThread().getContextClassLoader();
+    if(!(currentThreadClassLoader instanceof OChildFirstURLClassLoader)) {
+
+      try {
+        // defining child class loader to load neo4j dependencies
+        OPluginDependencyManager.setNewChildClassLoaderFromJarDir("/Users/gabriele/neo4j-community-3.1.1/lib");
+      } catch(Exception e) {
+        e.printStackTrace();
+      }
+    }
 
     List<String> argsList = new ArrayList<String>();
     final String neo4jLibDir = cfg.field("neo4jLibDir");

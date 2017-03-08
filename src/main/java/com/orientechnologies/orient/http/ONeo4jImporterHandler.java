@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 /**
  * Created by gabriele on 27/02/17.
  */
-public class ONeo4ImporterHandler {
+public class ONeo4jImporterHandler {
 
   private ExecutorService pool = Executors.newFixedThreadPool(1);
   private ONeo4jImporterJob currentJob = null;

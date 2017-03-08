@@ -1,7 +1,10 @@
 package com.orientechnologies.orient.neo4jimporter;
 
 import com.orientechnologies.orient.core.db.document.ODatabaseDocumentTx;
+import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.depsloader.OPluginDependencyManager;
+import com.orientechnologies.orient.http.ONeo4jImporterHandler;
+import com.orientechnologies.orient.http.ONeo4jImporterJob;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
@@ -342,6 +345,25 @@ public class ONeo4jImporterTest {
 
     try {
       neo4jImporter.execute();
+    } catch(Exception e) {
+      System.out.println("Exception message: " + e.getMessage());
+      System.out.println("Stacktrace:\n" + e.getStackTrace());
+    }
+
+  }
+
+  @Test
+  public void testLibRuntimeLoading2() throws Exception {
+
+    ODocument cfg = new ODocument();
+    cfg.field("neo4jLibDir","/Users/gabriele/neo4j-community-3.1.1/lib");
+    cfg.field("neo4jDbDir","/Users/gabriele/neo4j-community-3.1.1/data/databases/graph.db");
+    cfg.field("outDbUrl","/Users/gabriele/orientdb-community-2.2.18-SNAPSHOT/databases/neo4jImport");
+
+    ONeo4jImporterHandler handler = new ONeo4jImporterHandler();
+
+    try {
+      handler.executeImport(cfg);
     } catch(Exception e) {
       System.out.println("Exception message: " + e.getMessage());
       System.out.println("Stacktrace:\n" + e.getStackTrace());

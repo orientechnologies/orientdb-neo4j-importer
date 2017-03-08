@@ -13,7 +13,7 @@ import java.util.List;
  * Created by gabriele on 01/03/17.
  */
 
-class OChildFirstURLClassLoader extends URLClassLoader {
+public class OChildFirstURLClassLoader extends URLClassLoader {
 
   private ClassLoader system;
 
@@ -119,6 +119,10 @@ class OChildFirstURLClassLoader extends URLClassLoader {
     } catch (IOException e) {
     }
     return null;
+  }
+
+  public void addURL(URL url) {
+    super.addURL(url);
   }
 
 }

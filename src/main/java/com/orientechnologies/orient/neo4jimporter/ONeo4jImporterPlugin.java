@@ -21,13 +21,15 @@ public class ONeo4jImporterPlugin extends OServerPluginAbstract {
 
   public void executeJob(String[] args) throws Exception {
 
-    final ONeo4jImporter neo4jImporter = ONeo4jImporterCommandLineParser.getNeo4jImporter(args);
+    ClassLoader sysClassLoader = ClassLoader.getSystemClassLoader();
+    ClassLoader currentThreadClassLoader = Thread.currentThread().getContextClassLoader();
 
+    final ONeo4jImporter neo4jImporter = ONeo4jImporterCommandLineParser.getNeo4jImporter(args);
     ONeo4jImporterSettings settings = neo4jImporter.getSettings();
     String neo4jLibPath = settings.getNeo4jLibPath();
 
-    // defining child class loader to load neo4j dependencies
-    OPluginDependencyManager.setNewChildClassLoaderFromJarDir(neo4jLibPath);
+    // just adding urls to the current child-first class loader
+    OPluginDependencyManager.addUrlsToCurrentThreadClassLoader(neo4jLibPath);
 
     try {
       neo4jImporter.execute();
@@ -50,7 +52,6 @@ public class ONeo4jImporterPlugin extends OServerPluginAbstract {
       throw new OConfigurationException("HTTP listener not found");
 
     listener.registerStatelessCommand(new OServerCommandNeo4jImporter());
-
   }
 
   @Override

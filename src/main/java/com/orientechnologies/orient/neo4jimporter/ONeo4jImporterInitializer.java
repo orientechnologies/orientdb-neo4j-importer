@@ -9,6 +9,7 @@ import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 
 import java.io.File;
+import java.net.URLClassLoader;
 import java.util.logging.Level;
 
 import static com.orientechnologies.orient.neo4jimporter.ONeo4jImporter.PROGRAM_NAME;
@@ -72,6 +73,13 @@ class ONeo4jImporterInitializer {
     System.out.print("Initializing Neo4j...");
 
     File DB_PATH = new File(neo4jDBPath);
+
+//    URLClassLoader ucl = (URLClassLoader) Thread.currentThread().getContextClassLoader();
+//    try {
+//      Class<?> factory = Class.forName("org.neo4j.graphdb.factory.GraphDatabaseFactory", true, ucl);
+//    } catch (ClassNotFoundException e) {
+//      e.printStackTrace();
+//    }
 
     neo4jGraphDb = new GraphDatabaseFactory().newEmbeddedDatabase(DB_PATH);
     ONeo4jImporterUtils.registerNeo4jShutdownHook(neo4jGraphDb);

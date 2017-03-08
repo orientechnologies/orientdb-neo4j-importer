@@ -66,7 +66,7 @@ public class ONeo4jImporter {
     DecimalFormat dfd = new DecimalFormat("#.##");
     //
 
-    logString = PROGRAM_NAME + " - v." + OConstants.getVersion() + " started!\n";
+    //logString = PROGRAM_NAME + " - v." + OConstants.getVersion() + " started!\n";
     importLogger.log(Level.INFO, logString);
 
     // parameters (from command line)
@@ -170,7 +170,6 @@ public class ONeo4jImporter {
 
     System.out.print("\rShutting down Neo4j...Done");
     System.out.println();
-    //
   }
 
   private void printSummary(double startTime, DecimalFormat df, DecimalFormat dfd, ONeo4jImporterCounters counters,
