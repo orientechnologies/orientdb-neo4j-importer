@@ -382,7 +382,44 @@ public class ONeo4jImporterTest {
     ODatabaseDocumentTx db = new ODatabaseDocumentTx("plocal:target/migrated_databases/graphdb_northwind");
     db.open("admin", "admin");
 
-    // put asserts here ..
+    Assertions.assertThat(db.getMetadata().getSchema().getClass("Category")).isNotNull();
+    Assertions.assertThat(db.getMetadata().getSchema().getClass("Customer")).isNotNull();
+    Assertions.assertThat(db.getMetadata().getSchema().getClass("Order")).isNotNull();
+    Assertions.assertThat(db.getMetadata().getSchema().getClass("Product")).isNotNull();
+    Assertions.assertThat(db.getMetadata().getSchema().getClass("Supplier")).isNotNull();
+    Assertions.assertThat(db.getMetadata().getSchema().getClass("ORDERS")).isNotNull();
+    Assertions.assertThat(db.getMetadata().getSchema().getClass("PART_OF")).isNotNull();
+    Assertions.assertThat(db.getMetadata().getSchema().getClass("PURCHASED")).isNotNull();
+    Assertions.assertThat(db.getMetadata().getSchema().getClass("SUPPLIES")).isNotNull();
+
+    assertEquals(1035, db.getMetadata().getSchema().getClass("V").count());
+    assertEquals(3139, db.getMetadata().getSchema().getClass("E").count());
+
+    assertEquals(8, db.getMetadata().getSchema().getClass("Category").count());
+    assertEquals(91, db.getMetadata().getSchema().getClass("Customer").count());
+    assertEquals(830, db.getMetadata().getSchema().getClass("Order").count());
+    assertEquals(77, db.getMetadata().getSchema().getClass("Product").count());
+    assertEquals(29, db.getMetadata().getSchema().getClass("Supplier").count());
+    assertEquals(2155, db.getMetadata().getSchema().getClass("ORDERS").count());
+    assertEquals(77, db.getMetadata().getSchema().getClass("PART_OF").count());
+    assertEquals(830, db.getMetadata().getSchema().getClass("PURCHASED").count());
+    assertEquals(77, db.getMetadata().getSchema().getClass("SUPPLIES").count());
+
+    assertEquals(true, db.getMetadata().getSchema().getClass("Category").existsProperty("CategoryID"));
+    assertEquals(3, db.getMetadata().getSchema().getClass("Category").declaredProperties().size());
+    assertEquals(true, db.getMetadata().getSchema().getClass("Category").areIndexed("CategoryID"));
+
+    assertEquals(true, db.getMetadata().getSchema().getClass("Customer").existsProperty("CustomerID"));
+    assertEquals(3, db.getMetadata().getSchema().getClass("Customer").declaredProperties().size());
+    assertEquals(true, db.getMetadata().getSchema().getClass("Customer").areIndexed("CustomerID"));
+
+    assertEquals(true, db.getMetadata().getSchema().getClass("Order").existsProperty("OrderID"));
+    assertEquals(3, db.getMetadata().getSchema().getClass("Order").declaredProperties().size());
+    assertEquals(true, db.getMetadata().getSchema().getClass("Order").areIndexed("OrderID"));
+
+    assertEquals(true, db.getMetadata().getSchema().getClass("Product").existsProperty("ProductID"));
+    assertEquals(3, db.getMetadata().getSchema().getClass("Product").declaredProperties().size());
+    assertEquals(true, db.getMetadata().getSchema().getClass("Product").areIndexed("ProductID"));
 
     db.close();
 
