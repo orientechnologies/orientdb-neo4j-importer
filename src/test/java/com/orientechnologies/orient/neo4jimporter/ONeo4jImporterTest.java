@@ -321,4 +321,69 @@ public class ONeo4jImporterTest {
 
   }
 
+  @Test
+  public void shouldImportMovieDb() throws Exception {
+
+    ONeo4jImporterSettings settings = new ONeo4jImporterSettings();
+
+    settings.neo4jDbPath = "./neo4jdbs/databases/" + dbVersion + "/graphdb_movie";
+    settings.orientDbDir = "target/migrated_databases/graphdb_movie";
+    settings.overwriteOrientDbDir = true;
+    settings.createIndexOnNeo4jRelID = true;
+
+    ONeo4jImporter importer = new ONeo4jImporter(settings);
+
+    importer.execute();
+
+    ODatabaseDocumentTx db = new ODatabaseDocumentTx("plocal:target/migrated_databases/graphdb_movie");
+    db.open("admin", "admin");
+
+    Assertions.assertThat(db.getMetadata().getSchema().getClass("Movie")).isNotNull();
+    Assertions.assertThat(db.getMetadata().getSchema().getClass("Person")).isNotNull();
+    Assertions.assertThat(db.getMetadata().getSchema().getClass("ACTED_IN")).isNotNull();
+    Assertions.assertThat(db.getMetadata().getSchema().getClass("DIRECTED")).isNotNull();
+    Assertions.assertThat(db.getMetadata().getSchema().getClass("FOLLOWS")).isNotNull();
+    Assertions.assertThat(db.getMetadata().getSchema().getClass("PRODUCED")).isNotNull();
+    Assertions.assertThat(db.getMetadata().getSchema().getClass("REVIEWED")).isNotNull();
+    Assertions.assertThat(db.getMetadata().getSchema().getClass("WROTE")).isNotNull();
+
+    assertEquals(171, db.getMetadata().getSchema().getClass("V").count());
+    assertEquals(253, db.getMetadata().getSchema().getClass("E").count());
+
+    assertEquals(38, db.getMetadata().getSchema().getClass("Movie").count());
+    assertEquals(133, db.getMetadata().getSchema().getClass("Person").count());
+    assertEquals(172, db.getMetadata().getSchema().getClass("ACTED_IN").count());
+    assertEquals(44, db.getMetadata().getSchema().getClass("DIRECTED").count());
+    assertEquals(3, db.getMetadata().getSchema().getClass("FOLLOWS").count());
+    assertEquals(15, db.getMetadata().getSchema().getClass("PRODUCED").count());
+    assertEquals(9, db.getMetadata().getSchema().getClass("REVIEWED").count());
+    assertEquals(10, db.getMetadata().getSchema().getClass("WROTE").count());
+
+    db.close();
+
+  }
+
+  @Test
+  public void shouldImportNorthwindDb() throws Exception {
+
+    ONeo4jImporterSettings settings = new ONeo4jImporterSettings();
+
+    settings.neo4jDbPath = "./neo4jdbs/databases/" + dbVersion + "/graphdb_northwind";
+    settings.orientDbDir = "target/migrated_databases/graphdb_northwind";
+    settings.overwriteOrientDbDir = true;
+    settings.createIndexOnNeo4jRelID = true;
+
+    ONeo4jImporter importer = new ONeo4jImporter(settings);
+
+    importer.execute();
+
+    ODatabaseDocumentTx db = new ODatabaseDocumentTx("plocal:target/migrated_databases/graphdb_northwind");
+    db.open("admin", "admin");
+
+    // put asserts here ..
+
+    db.close();
+
+  }
+
 }
