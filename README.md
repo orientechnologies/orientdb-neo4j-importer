@@ -118,3 +118,11 @@ foreach(x in range(11,20) | create (:NodeLabelB {p_number:x, other_property: "No
 foreach(x in range(1,10) | create (:NodeLabelC:NodeLabelD {p_string:"string_value_" + x, other_property: "NodeLabelC-NodeLabelD"+x}))
 foreach(x in range(1,10) | create (:NodeLabelE {p_boolean:true, other_property: "NodeLabelE-"+x}))
 ```
+
+#### graphdb\_movie (test `shouldImportMovieDb`)
+
+Neo4j's example graph - created using Neo4j's Browser.
+
+#### graphdb\_northwind (test `shouldImportNorthwindDb`)
+
+Neo4j's example graph - created using Neo4j's Browser.
