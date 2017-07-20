@@ -2,6 +2,10 @@ Develop: [![Build Status](http://helios.orientdb.com/view/multibranch/job/orient
 
 # Neo4j to OrientDB Importer
 
+## Product Page
+
+http://orientdb.com/neo4j-to-orientdb-importer/
+
 ## Documentation
 
 http://orientdb.com/docs/last/OrientDB-Neo4j-Importer.html
