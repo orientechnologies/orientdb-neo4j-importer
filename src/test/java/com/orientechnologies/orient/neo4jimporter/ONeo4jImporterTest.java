@@ -66,10 +66,6 @@ public class ONeo4jImporterTest {
     ODatabaseDocumentTx db = new ODatabaseDocumentTx("plocal:target/migrated_databases/graphdb_unique_constraints_only");
     db.open("admin", "admin");
 
-    //0 vertices, 0 edges, class NodeLabelA, class NodeLabelB, class NodeLabelC, 3 properties, 3 unique indexes
-    assertEquals(0, db.getMetadata().getSchema().getClass("V").count());
-    assertEquals(0, db.getMetadata().getSchema().getClass("E").count());
-
     Assertions.assertThat(db.getMetadata().getSchema().getClass("NodeLabelA")).isNotNull();
     Assertions.assertThat(db.getMetadata().getSchema().getClass("NodeLabelB")).isNotNull();
     Assertions.assertThat(db.getMetadata().getSchema().getClass("NodeLabelC")).isNotNull();
@@ -85,7 +81,13 @@ public class ONeo4jImporterTest {
     assertEquals(true, db.getMetadata().getSchema().getClass("NodeLabelA").areIndexed("p_number"));
     assertEquals(true, db.getMetadata().getSchema().getClass("NodeLabelB").areIndexed("p_string"));
     assertEquals(true, db.getMetadata().getSchema().getClass("NodeLabelC").areIndexed("p_boolean"));
-    //
+
+    assertEquals(0, db.getMetadata().getSchema().getClass("V").count());
+    assertEquals(0, db.getMetadata().getSchema().getClass("E").count());
+
+    assertEquals(0, db.getMetadata().getSchema().getClass("NodeLabelA").count());
+    assertEquals(0, db.getMetadata().getSchema().getClass("NodeLabelB").count());
+    assertEquals(0, db.getMetadata().getSchema().getClass("NodeLabelC").count());
 
     db.close();
 
@@ -120,6 +122,9 @@ public class ONeo4jImporterTest {
     assertEquals(10, db.getMetadata().getSchema().getClass("NodeLabelB").count());
     assertEquals(10, db.getMetadata().getSchema().getClass("NodeLabelC").count());
 
+    assertEquals(30, db.getMetadata().getSchema().getClass("V").count());
+    assertEquals(0, db.getMetadata().getSchema().getClass("E").count());
+
     db.close();
 
   }
@@ -148,6 +153,9 @@ public class ONeo4jImporterTest {
     assertEquals(2, db.getMetadata().getSchema().getClass("GenericClassNeo4jConversion").declaredProperties().size());
 
     assertEquals(30, db.getMetadata().getSchema().getClass("V").count());
+    assertEquals(0, db.getMetadata().getSchema().getClass("E").count());
+
+    assertEquals(30, db.getMetadata().getSchema().getClass("GenericClassNeo4jConversion").count());
 
     db.close();
 
@@ -179,6 +187,13 @@ public class ONeo4jImporterTest {
     assertEquals(2, db.getMetadata().getSchema().getClass("NodeLabelC").declaredProperties().size());
     assertEquals(2, db.getMetadata().getSchema().getClass("GenericClassNeo4jConversion").declaredProperties().size());
 
+    assertEquals(30, db.getMetadata().getSchema().getClass("V").count());
+    assertEquals(0, db.getMetadata().getSchema().getClass("E").count());
+
+    assertEquals(10, db.getMetadata().getSchema().getClass("NodeLabelA").count());
+    assertEquals(5, db.getMetadata().getSchema().getClass("NodeLabelC").count());
+    assertEquals(15, db.getMetadata().getSchema().getClass("GenericClassNeo4jConversion").count());
+
     db.close();
 
   }
@@ -208,6 +223,13 @@ public class ONeo4jImporterTest {
     assertEquals(2, db.getMetadata().getSchema().getClass("NodeLabelC").declaredProperties().size());
     assertEquals(2, db.getMetadata().getSchema().getClass("GenericClassNeo4jConversion").declaredProperties().size());
 
+    assertEquals(30, db.getMetadata().getSchema().getClass("V").count());
+    assertEquals(0, db.getMetadata().getSchema().getClass("E").count());
+
+    assertEquals(20, db.getMetadata().getSchema().getClass("NodeLabelA").count());
+    assertEquals(5, db.getMetadata().getSchema().getClass("NodeLabelC").count());
+    assertEquals(5, db.getMetadata().getSchema().getClass("GenericClassNeo4jConversion").count());
+
     db.close();
 
   }
@@ -235,6 +257,9 @@ public class ONeo4jImporterTest {
 
     assertEquals(3, db.getMetadata().getSchema().getClass("NodeLabelA").declaredProperties().size());
     assertEquals(3, db.getMetadata().getSchema().getClass("NodeLabelB").declaredProperties().size());
+
+    assertEquals(40, db.getMetadata().getSchema().getClass("V").count());
+    assertEquals(0, db.getMetadata().getSchema().getClass("E").count());
 
     assertEquals(20, db.getMetadata().getSchema().getClass("NodeLabelA").count());
     assertEquals(20, db.getMetadata().getSchema().getClass("NodeLabelB").count());
@@ -276,6 +301,9 @@ public class ONeo4jImporterTest {
     assertEquals(10, db.getMetadata().getSchema().getClass("NodeLabelE").count());
     assertEquals(20, db.getMetadata().getSchema().getClass("MultipleLabelNeo4jConversion").count());
 
+    assertEquals(30, db.getMetadata().getSchema().getClass("V").count());
+    assertEquals(0, db.getMetadata().getSchema().getClass("E").count());
+
     db.close();
 
   }
@@ -316,6 +344,9 @@ public class ONeo4jImporterTest {
     assertEquals(10, db.getMetadata().getSchema().getClass("NodeLabelB").count());
     assertEquals(10, db.getMetadata().getSchema().getClass("NodeLabelE").count());
     assertEquals(20, db.getMetadata().getSchema().getClass("MultipleLabelNeo4jConversion").count());
+
+    assertEquals(40, db.getMetadata().getSchema().getClass("V").count());
+    assertEquals(0, db.getMetadata().getSchema().getClass("E").count());
 
     db.close();
 
